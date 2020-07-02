@@ -3,6 +3,7 @@ let rightShip;
 let allDebris = [];
 let leftScore;
 let rightScore;
+let timer;
 
 const NUM_DEBRIS = 30;
 
@@ -17,6 +18,8 @@ function setup() {
 
   leftScore = new Score(width * 0.33 - 40);
   rightScore = new Score(width * 0.66 + 40);
+
+  timer = new Timer();
 }
 
 function draw() {
@@ -32,6 +35,12 @@ function draw() {
 
   leftScore.display(leftShip.score);
   rightScore.display(rightShip.score);
+
+  timer.display();
+
+  if (timer.y >= height) {
+    noLoop();
+  }
 }
 
 function updateDebrisAndCheckCollisions() {
