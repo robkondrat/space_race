@@ -1,6 +1,8 @@
 let leftShip;
 let rightShip;
 let allDebris = [];
+let leftScore;
+let rightScore;
 
 const NUM_DEBRIS = 30;
 
@@ -12,6 +14,9 @@ function setup() {
   for (let i = 0; i < NUM_DEBRIS; i++) {
     allDebris.push(new Debris());
   }
+
+  leftScore = new Score(width * 0.33 - 40);
+  rightScore = new Score(width * 0.66 + 40);
 }
 
 function draw() {
@@ -24,6 +29,9 @@ function draw() {
   rightShip.display();
 
   updateDebrisAndCheckCollisions();
+
+  leftScore.display(leftShip.score);
+  rightScore.display(rightShip.score);
 }
 
 function updateDebrisAndCheckCollisions() {
