@@ -1,10 +1,17 @@
 let leftShip;
 let rightShip;
+let allDebris = [];
+
+const NUM_DEBRIS = 30;
 
 function setup() {
   createCanvas(400, 400);
   leftShip = new Ship(width * 0.33);
   rightShip = new Ship(width * 0.66);
+
+  for (let i = 0; i < NUM_DEBRIS; i++) {
+    allDebris.push(new Debris());
+  }
 }
 
 function draw() {
@@ -15,6 +22,21 @@ function draw() {
 
   leftShip.display();
   rightShip.display();
+
+  updateDebrisAndCheckCollisions();
+}
+
+function updateDebrisAndCheckCollisions() {
+  for (let i = 0; i < allDebris.length; i++) {
+    allDebris[i].update();
+    allDebris[i].display();
+
+    if (allDebris[i].hasHitShip(leftShip)) {
+      leftShip.respawn();
+    } else if (allDebris[i].hasHitShip(rightShip)) {
+      rightShip.respawn();
+    }
+  }
 }
 
 function keyPressed() {
